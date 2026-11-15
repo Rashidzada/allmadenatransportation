@@ -130,6 +130,7 @@ Please confirm vehicle availability and best quotation.
     'heavybus': { daily: 950, weekly: 5500, monthly: 18000 },
     'pickup': { daily: 450, weekly: 2600, monthly: 8500 },
     'daina': { daily: 600, weekly: 3500, monthly: 12000 },
+    'crane': { daily: 1100, weekly: 6500, monthly: 22000 },
     'sedan': { daily: 380, weekly: 2200, monthly: 7000 }
   };
 

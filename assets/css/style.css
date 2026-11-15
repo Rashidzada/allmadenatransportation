@@ -1833,3 +1833,31 @@ html[dir="rtl"] .drawer-menu-links a.active {
     display: flex !important;
   }
 }
+
+/* Universal Responsive Image Fitting */
+.fleet-image-wrap img,
+.service-image-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center center;
+  transition: transform 0.45s ease;
+}
+
+@media (max-width: 768px) {
+  .fleet-image-wrap {
+    height: 220px;
+  }
+  .service-image-wrap {
+    height: 185px;
+  }
+}
+
+@media (max-width: 480px) {
+  .fleet-image-wrap {
+    height: 205px;
+  }
+  .service-image-wrap {
+    height: 175px;
+  }
+}
