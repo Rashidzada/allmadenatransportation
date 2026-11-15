@@ -269,23 +269,9 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 /* Mobile Toggle */
-.mobile-toggle {
-  display: none;
-  background: none;
-  border: none;
-  cursor: pointer;
-  padding: 8px;
-}
 
-.mobile-toggle span {
-  display: block;
-  width: 26px;
-  height: 3px;
-  background: var(--primary);
-  margin: 5px 0;
-  border-radius: 3px;
-  transition: var(--transition);
-}
+
+
 
 /* Buttons */
 .btn {
@@ -1352,9 +1338,7 @@ h1, h2, h3, h4, h5, h6 {
   .top-bar {
     display: none;
   }
-  .mobile-toggle {
-    display: block;
-  }
+  
   .nav-menu {
     position: fixed;
     top: 80px;
@@ -1709,23 +1693,8 @@ html[dir="rtl"] .drawer-menu-links a.active {
   .mobile-actions {
     display: flex !important;
   }
-  .mobile-toggle {
-    display: flex !important;
-    align-items: center;
-    justify-content: center;
-    width: 42px;
-    height: 42px;
-    background: rgba(11, 37, 69, 0.08);
-    border-radius: 8px;
-    cursor: pointer;
-    border: none;
-  }
-  .mobile-toggle span {
-    width: 22px;
-    height: 2.5px;
-    background: var(--primary);
-    margin: 2px 0;
-  }
+  
+  
   .bottom-app-bar {
     display: block !important;
   }
@@ -1743,5 +1712,46 @@ html[dir="rtl"] .drawer-menu-links a.active {
   }
   .brand-tagline {
     font-size: 0.65rem;
+  }
+}
+
+
+/* Premium Best-Fit Mobile Menu Toggle Button */
+.mobile-toggle {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  width: 42px;
+  height: 42px;
+  background: var(--primary) !important;
+  color: var(--white) !important;
+  border-radius: 10px;
+  cursor: pointer;
+  border: 1px solid rgba(11, 37, 69, 0.15);
+  box-shadow: 0 4px 12px rgba(11, 37, 69, 0.2);
+  transition: var(--transition);
+  padding: 0;
+}
+
+.mobile-toggle:hover,
+.mobile-toggle:active {
+  background: var(--primary-light) !important;
+  color: var(--accent-bright) !important;
+  transform: translateY(-1px) scale(1.05);
+}
+
+.mobile-toggle i {
+  font-size: 1.3rem !important;
+  color: var(--white) !important;
+  display: block;
+}
+
+.mobile-toggle:hover i {
+  color: var(--accent-bright) !important;
+}
+
+@media (max-width: 850px) {
+  .mobile-toggle {
+    display: flex !important;
   }
 }
