@@ -127,6 +127,7 @@ Please confirm vehicle availability and best quotation.
     'coaster': { daily: 750, weekly: 4200, monthly: 14500 },
     'hiace': { daily: 550, weekly: 3200, monthly: 11000 },
     'hafla': { daily: 1200, weekly: 7000, monthly: 24000 },
+    'heavybus': { daily: 950, weekly: 5500, monthly: 18000 },
     'pickup': { daily: 450, weekly: 2600, monthly: 8500 },
     'daina': { daily: 600, weekly: 3500, monthly: 12000 },
     'sedan': { daily: 380, weekly: 2200, monthly: 7000 }
