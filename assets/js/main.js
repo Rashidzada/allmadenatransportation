@@ -1,32 +1,44 @@
 /**
  * ALL MADENA TRANSPORTATION SERVICES
- * Core Interactive Script
+ * Core Interactive Script & WhatsApp Trilingual Dispatch Engine
  */
 
 document.addEventListener('DOMContentLoaded', function () {
-  // Mobile Navigation Toggle
-  const mobileToggle = document.querySelector('.mobile-toggle');
-  const navMenu = document.querySelector('.nav-menu');
+  
+  // ==========================================
+  // 1. BEST-FIT MOBILE DRAWER MENU & BACKDROP
+  // ==========================================
+  const mobileToggleBtns = document.querySelectorAll('.mobile-toggle');
+  const drawerCloseBtn = document.getElementById('drawerCloseBtn');
+  const navDrawer = document.getElementById('mobileNavDrawer');
+  const drawerBackdrop = document.getElementById('drawerBackdrop');
 
-  if (mobileToggle && navMenu) {
-    mobileToggle.addEventListener('click', function () {
-      navMenu.classList.toggle('active');
-    });
-
-    // Close menu when clicking outside or clicking a link
-    document.addEventListener('click', function (e) {
-      if (!navMenu.contains(e.target) && !mobileToggle.contains(e.target)) {
-        navMenu.classList.remove('active');
-      }
-    });
-
-    const navLinks = navMenu.querySelectorAll('a');
-    navLinks.forEach(link => {
-      link.addEventListener('click', () => navMenu.classList.remove('active'));
-    });
+  function openDrawer() {
+    if (navDrawer && drawerBackdrop) {
+      navDrawer.classList.add('active');
+      drawerBackdrop.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
   }
 
-  // Floating WhatsApp Popup Toggle
+  function closeDrawer() {
+    if (navDrawer && drawerBackdrop) {
+      navDrawer.classList.remove('active');
+      drawerBackdrop.classList.remove('active');
+      document.body.style.overflow = '';
+    }
+  }
+
+  mobileToggleBtns.forEach(btn => btn.addEventListener('click', openDrawer));
+  if (drawerCloseBtn) drawerCloseBtn.addEventListener('click', closeDrawer);
+  if (drawerBackdrop) drawerBackdrop.addEventListener('click', closeDrawer);
+
+  const drawerLinks = document.querySelectorAll('.drawer-menu-links a');
+  drawerLinks.forEach(link => link.addEventListener('click', closeDrawer));
+
+  // ==========================================
+  // 2. FLOATING WHATSAPP POPUP
+  // ==========================================
   const whatsappFloatingBtn = document.getElementById('whatsappFloatingBtn');
   const whatsappPopup = document.getElementById('whatsappPopup');
   const whatsappPopupClose = document.getElementById('whatsappPopupClose');
@@ -51,46 +63,55 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   }
 
-  // FAQ Accordions
+  // ==========================================
+  // 3. FAQ ACCORDION
+  // ==========================================
   const faqHeaders = document.querySelectorAll('.faq-header');
   faqHeaders.forEach(header => {
     header.addEventListener('click', function () {
       const item = this.parentElement;
       const isActive = item.classList.contains('active');
-
-      // Close all items in this container
       document.querySelectorAll('.faq-item').forEach(el => el.classList.remove('active'));
-
-      if (!isActive) {
-        item.classList.add('active');
-      }
+      if (!isActive) item.classList.add('active');
     });
   });
 
-  // Hero Quick Booking Form -> WhatsApp pre-filled redirect
+  // ==========================================
+  // 4. TRILINGUAL WHATSAPP MESSAGE BUILDER
+  // (Arabic, Urdu, English + Website Source Verification)
+  // ==========================================
+  function createTrilingualWhatsAppUrl(vehicle, basis, route, date) {
+    const text = `السلام عليكم ورحمة الله وبركاته
+السلام علیکم ورحمة اللہ وبرکاتہ
+Assalamu Alaikum & Greetings,
+
+🌐 Inquiry via Website: allmadenatransportation.com
+I am contacting you directly from your official website to book:
+• 🚐 Vehicle: ${vehicle || 'Toyota Coaster / Hiace / Bus Hafla / Daina'}
+• 📅 Rental Basis: ${basis || 'Daily / Weekly / Monthly'}
+• 📍 Location / Route: ${route || 'Inside Kingdom of Saudi Arabia'}
+• 🗓️ Preferred Date: ${date || 'Immediate / Flexible'}
+
+برائے مہربانی کرایہ اور گاڑی کی دستیابی بتائیے۔
+Please confirm vehicle availability and best quotation.
+شكراً جزيلاً / شکریہ`;
+
+    return `https://wa.me/966511024545?text=${encodeURIComponent(text)}`;
+  }
+
+  // Quick Hero Booking Form
   const quickBookingForm = document.getElementById('quickBookingForm');
   if (quickBookingForm) {
     quickBookingForm.addEventListener('submit', function (e) {
       e.preventDefault();
-
-      const vehicle = document.getElementById('quickVehicle')?.value || 'Coaster / Hiace';
+      const vehicle = document.getElementById('quickVehicle')?.value || 'Toyota Coaster';
       const basis = document.getElementById('quickBasis')?.value || 'Daily Basis';
       const pickup = document.getElementById('quickPickup')?.value || 'Riyadh';
       const destination = document.getElementById('quickDestination')?.value || 'Inside KSA';
-      const date = document.getElementById('quickDate')?.value || 'Upcoming';
+      const date = document.getElementById('quickDate')?.value || 'As soon as possible';
 
-      const message = `Hello All Madena Transportation! 🚖
-I would like to inquire about booking:
-• Vehicle: ${vehicle}
-• Rental Basis: ${basis}
-• Pickup Location: ${pickup}
-• Destination: ${destination}
-• Date: ${date}
-Please provide availability and best rate. Thank you!`;
-
-      const encodedMsg = encodeURIComponent(message);
-      const whatsappUrl = `https://wa.me/966511024545?text=${encodedMsg}`;
-      window.open(whatsappUrl, '_blank');
+      const url = createTrilingualWhatsAppUrl(vehicle, basis, `${pickup} ➔ ${destination}`, date);
+      window.open(url, '_blank');
     });
   }
 
@@ -102,7 +123,6 @@ Please provide availability and best rate. Thank you!`;
   const calcPriceDisplay = document.getElementById('calcPriceDisplay');
   const calcWhatsAppBtn = document.getElementById('calcWhatsAppBtn');
 
-  // Base daily rates in SAR estimates
   const baseRates = {
     'coaster': { daily: 750, weekly: 4200, monthly: 14500 },
     'hiace': { daily: 550, weekly: 3200, monthly: 11000 },
@@ -133,7 +153,7 @@ Please provide availability and best rate. Thank you!`;
       unitPrice = vehicleData.monthly;
       unitLabel = `${qty} Month(s)`;
     } else {
-      unitPrice = vehicleData.daily * 0.85; // Airport / Single transfer approx
+      unitPrice = Math.round(vehicleData.daily * 0.85);
       unitLabel = 'Single Trip Transfer';
     }
 
@@ -145,15 +165,22 @@ Please provide availability and best rate. Thank you!`;
       const bName = calcBasis.options[calcBasis.selectedIndex].text;
       const cName = calcCity ? calcCity.options[calcCity.selectedIndex].text : 'Saudi Arabia';
 
-      const msg = `Hello All Madena Transportation,
-I used your online calculator for:
-• Vehicle: ${vName}
-• Rental Type: ${bName} (${unitLabel})
-• Location/Route: ${cName}
-Estimated Quote: SAR ${totalEstimate.toLocaleString()}
-Please confirm driver availability and reservation!`;
+      const text = `السلام عليكم ورحمة الله وبركاته
+السلام علیکم ورحمة اللہ وبرکاتہ
+Assalamu Alaikum,
 
-      calcWhatsAppBtn.href = `https://wa.me/966511024545?text=${encodeURIComponent(msg)}`;
+🌐 Inquiry via Website Calculator: allmadenatransportation.com
+I used your online calculator and want to book:
+• 🚐 Vehicle: ${vName}
+• 📅 Package: ${bName} (${unitLabel})
+• 📍 Area: ${cName}
+• 💰 Estimated Quote: SAR ${totalEstimate.toLocaleString()}
+
+برائے مہربانی ریزرویشن کنفرم کریں۔
+Please confirm this reservation and driver dispatch.
+شكراً جزيلاً / شکریہ`;
+
+      calcWhatsAppBtn.href = `https://wa.me/966511024545?text=${encodeURIComponent(text)}`;
     }
   }
 
@@ -165,7 +192,7 @@ Please confirm driver availability and reservation!`;
     updateCalculator();
   }
 
-  // General Contact Form Submission
+  // General Contact Form
   const contactForm = document.getElementById('contactForm');
   if (contactForm) {
     contactForm.addEventListener('submit', function (e) {
@@ -176,22 +203,52 @@ Please confirm driver availability and reservation!`;
       const vehicle = document.getElementById('cVehicle')?.value || '';
       const message = document.getElementById('cMessage')?.value || '';
 
-      const fullMsg = `Inquiry from All Madena Website:
-Name: ${name}
-Phone: ${phone}
-Email: ${email}
-Vehicle Needed: ${vehicle}
-Message: ${message}`;
+      const fullMsg = `السلام عليكم ورحمة الله وبركاته
+السلام علیکم ورحمة اللہ وبرکاتہ
+Assalamu Alaikum,
+
+🌐 New Inquiry from Website: allmadenatransportation.com
+• Name: ${name}
+• Client Phone: ${phone}
+• Email: ${email}
+• Requested Fleet: ${vehicle}
+• Details: ${message}
+
+برائے مہربانی فوری رابطہ فرمائیں۔
+Please contact me with quotation. شکریہ / شكراً`;
 
       const alertBox = document.getElementById('formSuccessMessage');
       if (alertBox) {
         alertBox.style.display = 'block';
-        alertBox.innerHTML = `<strong>Thank you ${name}!</strong> Your request has been logged. We are also opening WhatsApp for instant confirmation...`;
+        alertBox.innerHTML = `<strong>Thank you ${name}!</strong> Opening WhatsApp for instant reservation...`;
       }
 
       setTimeout(() => {
         window.open(`https://wa.me/966511024545?text=${encodeURIComponent(fullMsg)}`, '_blank');
-      }, 1200);
+      }, 800);
     });
   }
+
+  // Automatically enhance fleet card WhatsApp links with Trilingual text
+  document.querySelectorAll('.fleet-card').forEach(card => {
+    const title = card.querySelector('.fleet-title')?.textContent?.trim() || 'Vehicle';
+    const waLink = card.querySelector('a.btn-whatsapp');
+    if (waLink) {
+      const text = `السلام عليكم ورحمة الله وبركاته
+السلام علیکم ورحمة اللہ وبرکاتہ
+Assalamu Alaikum,
+
+🌐 Inquiry via Website: allmadenatransportation.com
+I am on your website and would like to reserve:
+• 🚐 Vehicle: ${title}
+• 🇸🇦 Location: Inside Kingdom of Saudi Arabia
+
+برائے مہربانی کرایہ اور دستیابی کی تفصیلات بتائیے۔
+Please provide availability and best price.
+شكراً جزيلاً / شکریہ`;
+
+      waLink.href = `https://wa.me/966511024545?text=${encodeURIComponent(text)}`;
+    }
+  });
+
 });

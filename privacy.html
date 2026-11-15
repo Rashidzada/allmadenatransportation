@@ -22,6 +22,15 @@
           </div>
         </a>
         <a href="index.html" class="btn btn-primary btn-sm">Home</a>
+              <div class="mobile-actions">
+          <button class="lang-switch-nav" type="button" aria-label="Language"><i class="fa-solid fa-globe"></i></button>
+          <a href="https://wa.me/966511024545" target="_blank" class="btn btn-whatsapp btn-sm" style="padding: 8px; border-radius: 50%; width: 38px; height: 38px; display: inline-flex; align-items: center; justify-content: center;"><i class="fa-brands fa-whatsapp"></i></a>
+          <button class="mobile-toggle" aria-label="Open Navigation Menu">
+            <span></span>
+            <span></span>
+            <span></span>
+          </button>
+        </div>
       </nav>
     </div>
   </header>
@@ -62,5 +71,66 @@
       &copy; 2026 All Madena Transportation Services. All Rights Reserved.
     </div>
   </footer>
+
+  <!-- Offcanvas Mobile Navigation Drawer -->
+  <div class="drawer-backdrop" id="drawerBackdrop"></div>
+  <aside class="mobile-nav-drawer" id="mobileNavDrawer">
+    <div class="drawer-header">
+      <div class="brand-logo">
+        <img src="assets/images/logo.png" alt="All Madena Logo">
+        <span style="font-weight: 800; font-size: 1.1rem; color: #fff;">ALL MADENA</span>
+      </div>
+      <button class="drawer-close" id="drawerCloseBtn" aria-label="Close Menu">&times;</button>
+    </div>
+    <div class="drawer-menu-links">
+      <a href="index.html"><i class="fa-solid fa-house"></i> Home (الرئيسية)</a>
+      <a href="about.html"><i class="fa-solid fa-circle-info"></i> About Us (من نحن)</a>
+      <a href="services.html"><i class="fa-solid fa-taxi"></i> Services (خدماتنا)</a>
+      <a href="fleet.html"><i class="fa-solid fa-bus"></i> Full Fleet (كامل الأسطول)</a>
+      <a href="coaster-hiace.html"><i class="fa-solid fa-van-shuttle"></i> Coaster & Hiace (كوستر وهايس)</a>
+      <a href="hafla-bus.html"><i class="fa-solid fa-champagne-glasses"></i> Bus Hafla (باص حفلة)</a>
+      <a href="daina-pickup.html"><i class="fa-solid fa-truck"></i> Daina & Pickup (دينا وبيك اب)</a>
+      <a href="corporate-contracts.html"><i class="fa-solid fa-building"></i> Corporate (عقود شركات)</a>
+      <a href="pricing.html"><i class="fa-solid fa-tag"></i> Pricing & Rates (الأسعار)</a>
+      <a href="contact.html"><i class="fa-solid fa-envelope"></i> Contact Us (اتصل بنا)</a>
+    </div>
+    <div class="drawer-footer">
+      <button class="lang-switch-btn" type="button" style="width: 100%; justify-content: center; background: var(--primary); color: #fff; padding: 10px;">
+        <i class="fa-solid fa-globe"></i> Switch Language (العربية / English)
+      </button>
+      <a href="https://wa.me/966511024545" target="_blank" class="btn btn-whatsapp btn-sm" style="width: 100%;">
+        <i class="fa-brands fa-whatsapp"></i> WhatsApp: 0511024545
+      </a>
+      <a href="tel:+966511024545" class="btn btn-primary btn-sm" style="width: 100%;">
+        <i class="fa-solid fa-phone"></i> Call Dispatch: 0511024545
+      </a>
+      <a href="https://wa.me/p/9263387833737993/966511024545" target="_blank" class="btn btn-accent btn-sm" style="width: 100%;">
+        <i class="fa-solid fa-store"></i> WhatsApp Product Catalog
+      </a>
+    </div>
+  </aside>
+
+  <!-- Bottom App Navigation Bar for Small Screens -->
+  <nav class="bottom-app-bar">
+    <div class="bottom-app-bar-inner">
+      <a href="index.html" class="bottom-tab-item">
+        <i class="fa-solid fa-house"></i>
+        <span>Home</span>
+      </a>
+      <a href="fleet.html" class="bottom-tab-item">
+        <i class="fa-solid fa-bus"></i>
+        <span>Fleet</span>
+      </a>
+      <a href="https://wa.me/966511024545" target="_blank" class="bottom-tab-item whatsapp-tab">
+        <i class="fa-brands fa-whatsapp"></i>
+        <span>WhatsApp</span>
+      </a>
+      <a href="tel:+966511024545" class="bottom-tab-item">
+        <i class="fa-solid fa-phone"></i>
+        <span>Call</span>
+      </a>
+    </div>
+  </nav>
+
 </body>
 </html>
